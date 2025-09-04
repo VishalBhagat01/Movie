@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎬 Movie Recommender</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #141414;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      background: #000;
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: #e50914;
+    }
+
+    .container {
+      padding: 20px;
+      text-align: center;
+    }
+
+    input, button {
+      padding: 12px;
+      margin: 8px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    input {
+      width: 250px;
+    }
+
+    button {
+      background: #e50914;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #f40612;
+    }
+
+    .row {
+      margin-top: 30px;
+    }
+
+    .row h2 {
+      text-align: left;
+      margin-left: 20px;
+      font-size: 1.5rem;
+    }
+
+    .movie-row {
+      display: flex;
+      overflow-x: auto;
+      gap: 15px;
+      padding: 20px;
+      scrollbar-width: none; /* Firefox */
+    }
+
+    .movie-row::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
+    }
+
+    .movie-card {
+      flex: 0 0 auto;
+      width: 200px;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s;
+      background: #222;
+      text-align: center;
+    }
+
+    .movie-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.08);
+      cursor: pointer;
+    }
+
+    .movie-info {
+      padding: 10px;
+    }
+
+    .movie-title {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .movie-rating {
+      color: #ffcc00;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .movie-link a {
+      text-decoration: none;
+      color: #1db954;
+      font-size: 0.85rem;
+    }
+
+    .movie-link a:hover {
+      text-decoration: underline;
+    }
+
+    .error {
+      color: #ff6b6b;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>🎬 Movie Recommender</header>
+
+  <div class="container">
+    <input type="text" id="movieInput" placeholder="Enter movie title..." />
+    <input type="number" id="topN" placeholder="How many?" value="5" min="1" max="20" />
+    <button onclick="getRecommendations()">Get Recommendations</button>
+
+    <div class="row">
+      <h2>Recommended Movies</h2>
+      <div class="movie-row" id="results"></div>
+    </div>
+  </div>
+
+  <script>
+    const TMDB_API_KEY = "01482029c29f1cf749ae4b30ed0dc2b8"; // 🔑 Replace with your TMDB key
+
+    async function fetchMovieData(movieTitle) {
+      try {
+        const res = await fetch(
+          `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(movieTitle)}`
+        );
+        const data = await res.json();
+        if (data.results && data.results.length > 0) {
+          const movie = data.results[0];
+          return {
+            poster: movie.poster_path
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+              : "https://via.placeholder.com/200x300?text=No+Poster",
+            rating: movie.vote_average ? movie.vote_average.toFixed(1) : "N/A",
+            link: `https://www.themoviedb.org/movie/${movie.id}`,
+          };
+        }
+      } catch (e) {
+        console.error("Poster fetch failed", e);
+      }
+      return {
+        poster: "https://via.placeholder.com/200x300?text=No+Poster",
+        rating: "N/A",
+        link: "#",
+      };
+    }
+
+    async function getRecommendations() {
+      const title = document.getElementById("movieInput").value.trim();
+      const topN = parseInt(document.getElementById("topN").value) || 5;
+      const resultsList = document.getElementById("results");
+      resultsList.innerHTML = "";
+
+      if (!title) {
+        alert("Please enter a movie title!");
+        return;
+      }
+
+      try {
+        const response = await fetch("https://vishalbhagat01-movie-api.hf.space/recommend", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title: title, top_n: topN })
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          resultsList.innerHTML = `<div class="error">Error: ${error.detail}</div>`;
+          return;
+        }
+
+        const data = await response.json();
+
+        for (const rec of data.recommendations) {
+          const movieData = await fetchMovieData(rec.title);
+
+          const card = document.createElement("div");
+          card.className = "movie-card";
+
+          const img = document.createElement("img");
+          img.src = movieData.poster;
+          img.alt = rec.title;
+
+          const infoDiv = document.createElement("div");
+          infoDiv.className = "movie-info";
+
+          const titleDiv = document.createElement("div");
+          titleDiv.className = "movie-title";
+          titleDiv.textContent = rec.title;
+
+          const ratingDiv = document.createElement("div");
+          ratingDiv.className = "movie-rating";
+          ratingDiv.textContent = `⭐ ${movieData.rating}`;
+
+          const linkDiv = document.createElement("div");
+          linkDiv.className = "movie-link";
+          linkDiv.innerHTML = `<a href="${movieData.link}" target="_blank">View on TMDB</a>`;
+
+          infoDiv.appendChild(titleDiv);
+          infoDiv.appendChild(ratingDiv);
+          infoDiv.appendChild(linkDiv);
+
+          card.appendChild(img);
+          card.appendChild(infoDiv);
+          resultsList.appendChild(card);
+        }
+
+      } catch (err) {
+        resultsList.innerHTML = `<div class="error">Request failed: ${err}</div>`;
+      }
+    }
+  </script>
+</body>
+</html>
