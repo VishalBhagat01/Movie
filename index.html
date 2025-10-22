@@ -10,11 +10,11 @@
     :root {
       --primary: #e50914;
       --primary-dark: #b2070f;
-      --secondary: #1db954;
       --dark: #141414;
       --darker: #0a0a0a;
       --light: #ffffff;
-      --gray: #6c757d;
+      --gray: #8c8c8c;
+      --gray-light: #b3b3b3;
       --card-bg: #222222;
       --card-hover: #2a2a2a;
     }
@@ -30,177 +30,233 @@
       background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
       color: var(--light);
       min-height: 100vh;
-      overflow-x: hidden;
+      line-height: 1.6;
     }
 
-    /* Header with animated background */
     header {
       padding: 25px 20px;
       text-align: center;
-      background: linear-gradient(90deg, rgba(229,9,20,0.2) 0%, rgba(0,0,0,0.8) 50%, rgba(29,185,84,0.2) 100%);
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    }
-
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(229,9,20,0.1)"/></svg>');
-      background-size: cover;
-      animation: headerSlide 20s linear infinite;
-    }
-
-    @keyframes headerSlide {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
+      background: linear-gradient(90deg, rgba(229,9,20,0.2) 0%, rgba(0,0,0,0.7) 100%);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
     .logo {
       font-size: 2.8rem;
       font-weight: 700;
-      letter-spacing: 3px;
-      background: linear-gradient(45deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      position: relative;
-      z-index: 1;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      color: var(--primary);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      letter-spacing: -0.5px;
+      margin-bottom: 5px;
     }
 
     .tagline {
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 300;
-      margin-top: 5px;
-      opacity: 0.8;
-      position: relative;
-      z-index: 1;
+      color: var(--gray-light);
+      letter-spacing: 0.5px;
     }
 
-    /* Main container */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 30px 20px;
     }
 
-    /* Search section */
     .search-section {
       text-align: center;
       margin-bottom: 40px;
-      padding: 30px;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      animation: fadeIn 0.8s ease-out;
+      padding: 30px 25px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .search-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.4);
     }
 
     .search-section h2 {
       font-size: 1.8rem;
       margin-bottom: 20px;
-      font-weight: 500;
+      color: var(--light);
+      font-weight: 600;
     }
 
     .input-group {
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
+      gap: 12px;
       margin-bottom: 20px;
+      flex-wrap: wrap;
     }
 
-    input, button, select {
-      padding: 14px 18px;
-      font-size: 16px;
+    input, select, button {
+      padding: 14px 16px;
+      font-size: 1rem;
       border-radius: 8px;
       border: none;
-      outline: none;
       transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
     }
 
     input {
-      width: 300px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255,255,255,0.08);
       color: var(--light);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    input:focus {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      min-width: 180px;
     }
 
     input::placeholder {
-      color: rgba(255, 255, 255, 0.6);
+      color: var(--gray-light);
     }
 
-    select {
-      background: rgba(255, 255, 255, 0.1);
+    input:focus {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid var(--primary);
+      box-shadow: 0 0 0 2px rgba(229,9,20,0.2);
+      outline: none;
+    }
+
+    /* Improved Genre Dropdown Styles */
+    .custom-select {
+      position: relative;
+      min-width: 180px;
+    }
+
+    .select-selected {
+      background: rgba(255,255,255,0.08);
       color: var(--light);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 14px 16px;
+      border-radius: 8px;
       cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
     }
 
-    select option {
-      background: var(--dark);
+    .select-selected:after {
+      content: "\f078";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: 0.8rem;
+      transition: transform 0.3s ease;
+    }
+
+    .select-selected.select-arrow-active:after {
+      transform: rotate(180deg);
+    }
+
+    .select-selected:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .select-items {
+      position: absolute;
+      background: #2a2a2a;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      border-radius: 8px;
+      margin-top: 5px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+    }
+
+    .select-items.show {
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    .select-items div {
       color: var(--light);
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .select-items div:hover {
+      background: rgba(229,9,20,0.2);
+    }
+
+    .select-items div.selected {
+      background: var(--primary);
+    }
+
+    .select-hide {
+      display: none;
     }
 
     button {
-      background: linear-gradient(45deg, var(--primary), var(--primary-dark));
-      color: white;
+      background: var(--primary);
+      color: var(--light);
       cursor: pointer;
-      font-weight: 600;
-      letter-spacing: 1px;
+      font-weight: 500;
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 14px 25px;
-      box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
+      padding: 14px 24px;
     }
 
     button:hover {
+      background: var(--primary-dark);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4);
+      box-shadow: 0 4px 12px rgba(229,9,20,0.3);
     }
 
-    button:active {
-      transform: translateY(0);
+    .genre-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 10px;
     }
 
-    /* Loading spinner */
+    .genre-tag {
+      background: rgba(255,255,255,0.08);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .genre-tag:hover {
+      background: rgba(229,9,20,0.2);
+      transform: translateY(-2px);
+    }
+
+    .genre-tag.active {
+      background: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(229,9,20,0.3);
+    }
+
     .spinner {
       display: none;
-      margin: 40px auto;
       text-align: center;
+      margin: 30px auto;
     }
 
     .spinner-circle {
-      width: 60px;
-      height: 60px;
-      border: 5px solid rgba(255, 255, 255, 0.1);
-      border-top: 5px solid var(--primary);
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255,255,255,0.1);
+      border-top: 4px solid var(--primary);
       border-radius: 50%;
       animation: spin 1s linear infinite;
       margin: 0 auto 15px;
-    }
-
-    .spinner-text {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.7);
     }
 
     @keyframes spin {
@@ -208,252 +264,158 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Results section */
     .results-section {
       margin-top: 40px;
-      animation: fadeIn 0.8s ease-out;
     }
 
     .section-title {
       font-size: 1.8rem;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid var(--primary);
-      display: inline-block;
+      margin-bottom: 25px;
+      color: var(--light);
+      font-weight: 600;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+      margin: 10px auto 0;
+      border-radius: 2px;
     }
 
     .movie-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 25px;
-      margin-top: 20px;
     }
 
     .movie-card {
       background: var(--card-bg);
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
-      transition: all 0.4s ease;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
       opacity: 0;
-      transform: translateY(20px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      position: relative;
+      transform: translateY(15px);
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
     .movie-card.show {
       opacity: 1;
       transform: translateY(0);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
     }
 
     .movie-card:hover {
-      transform: translateY(-10px) scale(1.03);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.4);
       background: var(--card-hover);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
     }
 
     .movie-poster {
       width: 100%;
-      height: 300px;
+      height: 280px;
       object-fit: cover;
       display: block;
-      transition: transform 0.5s ease;
-    }
-
-    .movie-card:hover .movie-poster {
-      transform: scale(1.1);
     }
 
     .movie-info {
       padding: 15px;
+      text-align: center;
     }
 
     .movie-title {
       font-size: 1.1rem;
-      font-weight: 600;
+      font-weight: 500;
       margin-bottom: 8px;
-      white-space: nowrap;
+      line-height: 1.3;
+      height: 2.6em;
       overflow: hidden;
-      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
 
     .movie-rating {
       color: #ffcc00;
       font-size: 0.95rem;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 5px;
     }
 
     .movie-link {
-      display: inline-block;
-      background: rgba(29, 185, 84, 0.2);
-      color: var(--secondary);
-      padding: 6px 12px;
+      background: rgba(229,9,20,0.15);
+      color: var(--primary);
+      padding: 8px 16px;
       border-radius: 20px;
-      font-size: 0.85rem;
       text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
       transition: all 0.3s ease;
-      border: 1px solid rgba(29, 185, 84, 0.3);
+      display: inline-block;
     }
 
     .movie-link:hover {
-      background: rgba(29, 185, 84, 0.3);
+      background: var(--primary);
+      color: var(--light);
       transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(229,9,20,0.3);
     }
 
     .error {
       color: #ff6b6b;
       text-align: center;
-      padding: 20px;
-      font-size: 1.1rem;
-      background: rgba(255, 107, 107, 0.1);
-      border-radius: 10px;
       margin-top: 20px;
+      padding: 15px;
+      background: rgba(255,107,107,0.1);
+      border-radius: 8px;
+      border: 1px solid rgba(255,107,107,0.2);
     }
 
-    /* Featured movies section */
-    .featured-section {
-      margin: 60px 0 40px;
-    }
-
-    .featured-movies {
-      display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      padding: 20px 10px;
-      scrollbar-width: thin;
-      scrollbar-color: var(--primary) transparent;
-    }
-
-    .featured-movies::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    .featured-movies::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .featured-movies::-webkit-scrollbar-thumb {
-      background: var(--primary);
-      border-radius: 4px;
-    }
-
-    .featured-card {
-      flex: 0 0 auto;
-      width: 180px;
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    .featured-card:hover {
-      transform: scale(1.05);
-    }
-
-    .featured-card img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-    }
-
-    /* Footer */
     footer {
       text-align: center;
-      padding: 30px 20px;
-      margin-top: 60px;
-      background: rgba(0, 0, 0, 0.5);
+      padding: 25px;
+      margin-top: 40px;
+      color: var(--gray);
       font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.6);
+      border-top: 1px solid rgba(255,255,255,0.05);
     }
 
-    /* Responsive design */
     @media (max-width: 768px) {
-      .input-group {
-        flex-direction: column;
+      .input-group { 
+        flex-direction: column; 
         align-items: center;
       }
       
-      input {
+      input, .custom-select {
         width: 100%;
         max-width: 400px;
       }
       
-      .movie-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      .movie-grid { 
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
         gap: 15px;
       }
       
       .movie-poster {
-        height: 240px;
+        height: 220px;
       }
-    }
-
-    @media (max-width: 480px) {
+      
       .logo {
         font-size: 2.2rem;
       }
-      
-      .movie-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      }
-      
-      .movie-poster {
-        height: 200px;
-      }
-    }
-
-    /* Animation for cards */
-    @keyframes cardAppear {
-      from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    /* Pulse animation for loading */
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-
-    /* Genre tags */
-    .genre-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 20px 0;
-      justify-content: center;
-    }
-
-    .genre-tag {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 8px 15px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .genre-tag:hover, .genre-tag.active {
-      background: var(--primary);
-      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">CINEMATIC RECOMMENDER</div>
+    <div class="logo">CINEMATIC</div>
     <div class="tagline">Discover your next favorite movie</div>
   </header>
 
@@ -462,20 +424,26 @@
       <h2>Find Movies You'll Love</h2>
       <div class="input-group">
         <input type="text" id="movieInput" placeholder="Enter a movie you like..." />
-        <select id="genreFilter">
-          <option value="">All Genres</option>
-          <option value="action">Action</option>
-          <option value="comedy">Comedy</option>
-          <option value="drama">Drama</option>
-          <option value="sci-fi">Sci-Fi</option>
-          <option value="horror">Horror</option>
-        </select>
+        
+        <!-- Improved Genre Dropdown -->
+        <div class="custom-select">
+          <div class="select-selected">All Genres</div>
+          <div class="select-items">
+            <div data-value="">All Genres</div>
+            <div data-value="action">Action</div>
+            <div data-value="comedy">Comedy</div>
+            <div data-value="drama">Drama</div>
+            <div data-value="sci-fi">Sci-Fi</div>
+            <div data-value="horror">Horror</div>
+            <div data-value="romance">Romance</div>
+            <div data-value="thriller">Thriller</div>
+            <div data-value="animation">Animation</div>
+          </div>
+        </div>
+        
         <input type="number" id="topN" placeholder="How many?" value="8" min="1" max="20" />
-        <button onclick="getRecommendations()">
-          <i class="fas fa-search"></i> Get Recommendations
-        </button>
+        <button onclick="getRecommendations()"><i class="fas fa-search"></i> Get Recommendations</button>
       </div>
-      
       <div class="genre-tags">
         <div class="genre-tag" data-genre="action">Action</div>
         <div class="genre-tag" data-genre="comedy">Comedy</div>
@@ -490,200 +458,199 @@
 
     <div class="spinner" id="spinner">
       <div class="spinner-circle"></div>
-      <div class="spinner-text">Finding the perfect movies for you...</div>
+      <div class="spinner-text">Finding movies...</div>
     </div>
-
-    <section class="featured-section">
-      <h2 class="section-title">Featured Movies</h2>
-      <div class="featured-movies" id="featuredMovies">
-        <!-- Featured movies will be loaded here -->
-      </div>
-    </section>
 
     <section class="results-section">
       <h2 class="section-title">Recommended For You</h2>
-      <div class="movie-grid" id="results">
-        <!-- Results will be loaded here -->
-      </div>
+      <div class="movie-grid" id="results"></div>
     </section>
   </div>
 
+  <footer>
+    Made with ❤️ for movie lovers
+  </footer>
 
   <script>
     const TMDB_API_KEY = "01482029c29f1cf749ae4b30ed0dc2b8";
-    
-    // Featured movies to display initially
-    const featuredMovies = [
-      "The Dark Knight", "Inception", "Pulp Fiction", "The Godfather", 
-      "Fight Club", "The Matrix", "Parasite", "Interstellar"
-    ];
 
-    // Initialize featured movies
-    document.addEventListener('DOMContentLoaded', function() {
-      loadFeaturedMovies();
+    document.addEventListener('DOMContentLoaded', () => {
       setupGenreTags();
+      setupCustomDropdown();
     });
 
-    // Set up genre tags interaction
+    function setupCustomDropdown() {
+      const customSelects = document.querySelectorAll(".custom-select");
+      
+      customSelects.forEach(select => {
+        const selected = select.querySelector(".select-selected");
+        const items = select.querySelector(".select-items");
+        
+        // Toggle dropdown
+        selected.addEventListener("click", function(e) {
+          e.stopPropagation();
+          closeAllSelect(this);
+          items.classList.toggle("show");
+          this.classList.toggle("select-arrow-active");
+        });
+        
+        // Handle option selection
+        items.querySelectorAll("div").forEach(item => {
+          item.addEventListener("click", function() {
+            const value = this.getAttribute("data-value");
+            const text = this.textContent;
+            
+            // Update selected display
+            selected.textContent = text;
+            
+            // Mark as selected
+            items.querySelectorAll("div").forEach(opt => {
+              opt.classList.remove("selected");
+            });
+            this.classList.add("selected");
+            
+            // Close dropdown
+            items.classList.remove("show");
+            selected.classList.remove("select-arrow-active");
+            
+            // Update genre tags to match
+            updateGenreTags(value);
+          });
+        });
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener("click", closeAllSelect);
+    }
+    
+    function closeAllSelect(elmnt) {
+      const selects = document.querySelectorAll(".select-items");
+      const selected = document.querySelectorAll(".select-selected");
+      
+      selects.forEach(item => {
+        item.classList.remove("show");
+      });
+      
+      selected.forEach(item => {
+        item.classList.remove("select-arrow-active");
+      });
+    }
+    
+    function updateGenreTags(genre) {
+      const genreTags = document.querySelectorAll('.genre-tag');
+      genreTags.forEach(tag => {
+        tag.classList.toggle('active', tag.dataset.genre === genre);
+      });
+    }
+
     function setupGenreTags() {
       const genreTags = document.querySelectorAll('.genre-tag');
-      const genreFilter = document.getElementById('genreFilter');
       
       genreTags.forEach(tag => {
-        tag.addEventListener('click', function() {
-          const genre = this.getAttribute('data-genre');
-          
-          // Toggle active state
+        tag.addEventListener('click', () => {
+          const genre = tag.dataset.genre;
           genreTags.forEach(t => t.classList.remove('active'));
-          this.classList.add('active');
+          tag.classList.add('active');
           
-          // Update filter dropdown
-          genreFilter.value = genre;
-        });
-      });
-      
-      // Also update tags when dropdown changes
-      genreFilter.addEventListener('change', function() {
-        const genre = this.value;
-        genreTags.forEach(tag => {
-          tag.classList.toggle('active', tag.getAttribute('data-genre') === genre);
+          // Update custom dropdown
+          const dropdownItems = document.querySelectorAll('.select-items div');
+          dropdownItems.forEach(item => {
+            if (item.getAttribute('data-value') === genre) {
+              const selected = document.querySelector('.select-selected');
+              selected.textContent = item.textContent;
+              
+              // Mark as selected
+              dropdownItems.forEach(opt => {
+                opt.classList.remove("selected");
+              });
+              item.classList.add("selected");
+            }
+          });
         });
       });
     }
 
-    // Load featured movies
-    async function loadFeaturedMovies() {
-      const featuredContainer = document.getElementById('featuredMovies');
-      
-      for (const title of featuredMovies) {
-        const movieData = await fetchMovieData(title);
-        
-        const card = document.createElement('div');
-        card.className = 'featured-card';
-        card.innerHTML = `
-          <img src="${movieData.poster}" alt="${title}" />
-        `;
-        
-        // Add click event to search for this movie
-        card.addEventListener('click', function() {
-          document.getElementById('movieInput').value = title;
-          getRecommendations();
-        });
-        
-        featuredContainer.appendChild(card);
-      }
-    }
-
-    // Fetch movie data from TMDB
     async function fetchMovieData(movieTitle) {
       try {
-        const res = await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(movieTitle)}`
-        );
+        const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(movieTitle)}`);
         const data = await res.json();
         if (data.results && data.results.length > 0) {
           const movie = data.results[0];
           return {
-            poster: movie.poster_path
-              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-              : "https://via.placeholder.com/200x300/222222/FFFFFF?text=No+Poster",
+            poster: movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "https://via.placeholder.com/200x300?text=No+Image",
             rating: movie.vote_average ? movie.vote_average.toFixed(1) : "N/A",
             link: `https://www.themoviedb.org/movie/${movie.id}`,
           };
         }
-      } catch (e) {
-        console.error("Poster fetch failed", e);
-      }
-      return {
-        poster: "https://via.placeholder.com/200x300/222222/FFFFFF?text=No+Poster",
-        rating: "N/A",
-        link: "#",
-      };
+      } catch (e) { console.error(e); }
+      return { poster: "https://via.placeholder.com/200x300?text=No+Image", rating: "N/A", link: "#" };
     }
 
-    // Get recommendations
+    function getSelectedGenre() {
+      const selectedItem = document.querySelector('.select-items div.selected');
+      return selectedItem ? selectedItem.getAttribute('data-value') : '';
+    }
+
     async function getRecommendations() {
       const title = document.getElementById('movieInput').value.trim();
       const topN = parseInt(document.getElementById('topN').value) || 8;
+      const genre = getSelectedGenre();
       const resultsContainer = document.getElementById('results');
       const spinner = document.getElementById('spinner');
-
-      resultsContainer.innerHTML = '';
+      
       if (!title) {
         alert('Please enter a movie title!');
         return;
       }
-
-      // Show spinner with animation
-      spinner.style.display = 'block';
       
-      // Add pulse animation to search button
-      const searchBtn = document.querySelector('button');
-      searchBtn.classList.add('pulse');
-
+      spinner.style.display = 'block';
+      resultsContainer.innerHTML = '';
+      
       try {
-        const response = await fetch('https://vishalbhagat01-movie-api.hf.space/recommend', {
+        const response = await fetch('https://movie-recommender-api-1.onrender.com/recommend', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title: title, top_n: topN })
+          body: JSON.stringify({ title, top_n: topN, genre })
         });
-
-        // Hide spinner and remove pulse animation
+        
         spinner.style.display = 'none';
-        searchBtn.classList.remove('pulse');
-
+        
         if (!response.ok) {
           const error = await response.json();
           resultsContainer.innerHTML = `<div class="error">Error: ${error.detail}</div>`;
           return;
         }
-
+        
         const data = await response.json();
         
-        // Clear previous results
-        resultsContainer.innerHTML = '';
-        
-        // Add cards with staggered animation
-        for (let i = 0; i < data.recommendations.length; i++) {
-          const rec = data.recommendations[i];
-          const movieData = await fetchMovieData(rec.title);
-
-          const card = document.createElement('div');
-          card.className = 'movie-card';
-          
-          card.innerHTML = `
-            <img src="${movieData.poster}" alt="${rec.title}" class="movie-poster" />
-            <div class="movie-info">
-              <div class="movie-title">${rec.title}</div>
-              <div class="movie-rating">
-                <i class="fas fa-star"></i> ${movieData.rating}
-              </div>
-              <a href="${movieData.link}" target="_blank" class="movie-link">
-                <i class="fas fa-external-link-alt"></i> View Details
-              </a>
-            </div>
-          `;
-          
-          resultsContainer.appendChild(card);
-          
-          // Stagger the animation for each card
-          setTimeout(() => {
-            card.classList.add('show');
-          }, 100 * i);
+        if (data.recommendations && data.recommendations.length > 0) {
+          data.recommendations.forEach((rec, i) => {
+            fetchMovieData(rec.title).then(movieData => {
+              const card = document.createElement('div');
+              card.className = 'movie-card';
+              card.innerHTML = `
+                <img src="${movieData.poster}" class="movie-poster" alt="${rec.title}" />
+                <div class="movie-info">
+                  <div class="movie-title">${rec.title}</div>
+                  <div class="movie-rating"><i class="fas fa-star"></i> ${movieData.rating}</div>
+                  <a href="${movieData.link}" target="_blank" class="movie-link">View Details</a>
+                </div>
+              `;
+              resultsContainer.appendChild(card);
+              setTimeout(() => card.classList.add('show'), 100 * i);
+            });
+          });
+        } else {
+          resultsContainer.innerHTML = `<div class="error">No results found for this movie.</div>`;
         }
-
       } catch (err) {
         spinner.style.display = 'none';
-        searchBtn.classList.remove('pulse');
         resultsContainer.innerHTML = `<div class="error">Request failed: ${err}</div>`;
       }
     }
 
-    // Allow pressing Enter to search
-    document.getElementById('movieInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        getRecommendations();
-      }
+    document.getElementById('movieInput').addEventListener('keypress', e => {
+      if (e.key === 'Enter') getRecommendations();
     });
   </script>
 </body>
